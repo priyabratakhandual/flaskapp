@@ -4,12 +4,24 @@ services:
   flaskapp:
     build: .
     container_name: flaskapp
-    ports:
-      - "5000:5000"
+    expose:
+      - "5000"  # Use 'expose' instead of 'ports' for internal networking
     environment:
       - FLASK_ENV=production
     volumes:
       - .:/app
+    networks:
+      - flask_network
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx_proxy
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - flaskapp
     networks:
       - flask_network
 
