@@ -32,13 +32,25 @@ pipeline {
 
         stage('Optional Cleanup') {
             when {
-                expression { return false } // change to true to enable cleanup
+                expression { return true } // change to true to enable cleanup
             }
             steps {
                 script {
                     sh 'docker-compose down'
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            echo 'This stage runs after the pipeline has finished, regardless of success or failure.'
+        }
+        success {
+            echo 'This stage runs only if the pipeline completes successfully.'
+        }
+        failure {
+            echo 'This stage runs only if the pipeline fails.'
         }
     }
 }
