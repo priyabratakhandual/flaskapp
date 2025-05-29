@@ -17,7 +17,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker-compose build'
+                    sh 'docker compose build'
                 }
             }
         }
@@ -25,7 +25,7 @@ pipeline {
         stage('Run Application') {
             steps {
                 script {
-                    sh 'docker-compose up -d'
+                    sh 'docker compose up -d'
                 }
             }
         }
@@ -35,9 +35,7 @@ pipeline {
                 expression { return true } // change to true to enable cleanup
             }
             steps {
-                script {
-                    sh 'docker-compose down'
-                }
+                echo 'Cleanup logic goes here (currently no docker compose down).'
             }
         }
     }
