@@ -17,7 +17,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh '/usr/local/bin/docker compose build'
+                    sh 'docker-compose build'
                 }
             }
         }
@@ -25,7 +25,7 @@ pipeline {
         stage('Run Application') {
             steps {
                 script {
-                    sh '/usr/local/bin/docker compose up -d'
+                    sh 'docker-compose up -d'
                 }
             }
         }
